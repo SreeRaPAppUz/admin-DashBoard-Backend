@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -7,13 +8,13 @@ require('dotenv').config();
 const app = express();
 
 // -------------------- CORS --------------------
-// Allow specific origins
+// Allow your frontend and localhost
 app.use(cors({
   origin: [
-    'https://admin-dashboardfrontend.netlify.app', // your production frontend
-    'http://localhost:3000' // your local dev frontend
+    'https://admin-dashboardfrontend.netlify.app',
+    'http://localhost:3000'
   ],
-  credentials: true // if you use cookies or auth headers
+  credentials: true
 }));
 
 // -------------------- Body Parser --------------------
