@@ -7,28 +7,18 @@ require('dotenv').config();
 const app = express();
 
 // -------------------- CORS --------------------
-// Allow only your frontend and localhost (for development)
-const allowedOrigins = [
-  'https://admin-dashboardfrontend.netlify.app',
-  'http://localhost:3000'
-];
-
+// Allow specific origins
 app.use(cors({
-  origin: function(origin, callback) {
-    // allow requests with no origin (like Postman)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true // allows cookies or auth headers
+  origin: [
+    'https://admin-dashboardfrontend.netlify.app', // your production frontend
+    'http://localhost:3000' // your local dev frontend
+  ],
+  credentials: true // if you use cookies or auth headers
 }));
 
 // -------------------- Body Parser --------------------
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // helps to read data from HTML forms
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // -------------------- Static Files --------------------
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
